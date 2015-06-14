@@ -1,0 +1,108 @@
+body {
+	max-width:800px;
+	margin:auto;
+	background-image: url("/assets/img/background.jpg");
+	background-repeat: repeat;
+}
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+.form-signin .checkbox {
+	font-weight: normal;
+}
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.single-tweet{
+	border: 1px solid #ABBCCC;
+	max-width: 500px;
+	background-color: #B6FFB6;
+	margin: 5px 0 5px 0;
+}
+#handle {
+	font-weight: bold;
+}
+.center{
+	margin:auto;
+	text-align:center;
+}
+#log {
+	width:100%;
+	height:400px
+}
+#message {
+	width:100%;
+	margin: 0 0 10px 0;
+}
+.right{
+	text-align: right;
+}
+.container {
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 500px; /* or 950px */
+}
+#tweetah-stream{
+	margin: 10px 0 0 0;
+}
+#headline{
+	margin: 0 0 10px 0;
+}
+.pretty-pic{
+-webkit-border-radius: 50px;
+-moz-border-radius: 50px;
+border-radius: 50px;
+}
+.tweet-date{
+	text-align: right;
+	font-style: italic;
+}
+.tweet-handle{
+	font-weight: bold;
+}
+.tweet-message{
+	margin:5px;
+}
+.tweet-details{
+	margin: 0 2px 0 2px;
+}
+#chars-left{
+	color:#990000;
+}
+#new-account{
+	margin-bottom:5px;
+}
+
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
