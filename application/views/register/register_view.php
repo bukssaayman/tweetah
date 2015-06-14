@@ -21,12 +21,12 @@
 						<div class="row">
 							<div class="col-xs-6 col-sm-6 col-md-6">
 								<div class="form-group">
-									<input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+									<input type="text" name="first_name" id="first_name" value="<?php echo !empty($this->input->post('first_name'))?$this->input->post('first_name'):'' ?>" class="form-control input-sm" placeholder="First Name">
 								</div>
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-6">
 								<div class="form-group">
-									<input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+									<input type="text" name="last_name" id="last_name" value="<?php echo !empty($this->input->post('last_name'))?$this->input->post('last_name'):'' ?>" class="form-control input-sm" placeholder="Last Name">
 								</div>
 							</div>
 						</div>
@@ -35,7 +35,7 @@
 								<div class="form-group">
 									<div class="input-group">
 										<span class="input-group-addon" id="basic-addon1">@</span>
-										<input type="text" id="handle" name="handle" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+										<input type="text" id="handle" name="handle" value="<?php echo !empty($this->input->post('handle'))?$this->input->post('handle'):'' ?>" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
 									</div>
 								</div>
 							</div>
