@@ -3,6 +3,11 @@
 if(!defined('BASEPATH'))	exit('No direct script access allowed');
 
 class	Tweets	extends	MY_Controller	{
+	
+	public function __construct()	{
+		parent::__construct();
+		parent::forceLoggedIn(); //make sure the user is logged in for all methods in this class
+}
 
 	public	function	index()	{
 		$this->load->database();

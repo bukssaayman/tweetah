@@ -15,7 +15,7 @@
 						<label class="sr-only">password</label>
 						<input type="password" name="password" class="form-control" placeholder="password" required>
 						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-						<a href="<?php	echo	base_url()	.	'welcome/register'	?>" class="btn btn-lg btn-primary btn-block">Register new account</a>
+						<a href="<?php	echo	base_url()	.	'register'	?>" class="btn btn-lg btn-primary btn-block">Register new account</a>
 					</form>
 				</div> 
 			</div> 
