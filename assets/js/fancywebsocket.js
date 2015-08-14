@@ -1,7 +1,6 @@
 var FancyWebSocket = function(url)
 {
 	var callbacks = {};
-	var ws_url = url;
 	var conn;
 
 	this.bind = function(event_name, callback){

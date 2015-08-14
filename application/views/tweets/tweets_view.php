@@ -30,17 +30,11 @@
 	</div>
 	<div class="row">
 		<div id="tweetah-stream" class="col-sm-12">
-
 			<?php
-			foreach($tweets	as	$key	=>	$tweet){
-				$data	=	array(
-				'handle'	=>	$tweet->strHandle,
-				'timestamp'	=>	$tweet->timestamp,
-				'tweettext'	=>	$tweet->strTweetText);
-				echo	$this->load->view('tweets/tweet',	$data,	TRUE);
-				?>
-			<?php	}	?>
-			<!--<textarea id='log' name='log' readonly='readonly'><?php	foreach($tweets	as	$key	=>	$tweet){	echo	'@'	.	$tweet->strHandle	.	': '	.	$tweet->strTweetText	.	"\n";	}	?>	</textarea>-->
+			foreach($tweets	as	$tweet){
+				$data['tweet'] = $tweet;
+				echo	$this->load->view('tweets/tweet_template',	$data,	TRUE);
+			}	?>
 		</div>
 	</div>
 

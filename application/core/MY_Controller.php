@@ -25,14 +25,14 @@ class	MY_Controller	extends	CI_Controller	{
 			$this->load->library('session');
 
 			$this->load->model('Users_model',	'Users');
-			$data['user']	=	$this->Users->getUserDetails(array('userID' => $intUserID));
-
+			$data['user']	=	$this->Users->getUser(array('userID' => $intUserID));
+			
 			$this->session->set_userdata(array(
-			'handle'	=>	$data['user'][0]->strHandle,
-			'firstName'	=>	$data['user'][0]->strFirstName,
-			'lastName'	=>	$data['user'][0]->strLastName,
-			'userID'	=>	$data['user'][0]->userID,
-			'logged_in'	=>	TRUE
+			'handle'	=>	$data['user'][0]['strHandle'],
+			'firstName'	=>	$data['user'][0]['strFirstName'],
+			'lastName'	=>	$data['user'][0]['strLastName'],
+			'userID'	=>	$data['user'][0]['userID'],
+			'logged_in'	=>	true
 			));
 		}
 	}

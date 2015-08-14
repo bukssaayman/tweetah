@@ -12,8 +12,8 @@ class	Tweets	extends	MY_Controller	{
 	public	function	index()	{
 		$this->load->database();
 		$this->load->model('Tweets_model');
-		$data['tweets']	=	$this->Tweets_model->getTweetsForUser();
-
+		$data['tweets']	=	$this->Tweets_model->getTweetsForUserTimeline();
+		
 		$this->load->view('tweets/header');
 		$this->load->view('tweets/tweets_view',	$data);
 		$this->load->view('tweets/footer');
@@ -22,15 +22,15 @@ class	Tweets	extends	MY_Controller	{
 	public	function	log(){
 		$this->load->database();
 		$this->load->model('Tweets_model');
-		$data['tweets']	=	$this->Tweets_model->logTweetsForUser();
+		$this->Tweets_model->logTweetsForUser();
 
-		$data	=	array(
-		'handle'	=>	$this->session->userdata('handle'),
+		$data['tweet']	=	array(
+		'strHandle'	=>	$this->session->userdata('handle'),
 		'timestamp'	=>	date('Y-m-d H:i:s'),
-		'tweettext'	=>	$this->input->post('text')
+		'strTweetText'	=>	$this->input->post('text')
 		);
 		
-		$tweetHTML	=	$this->load->view('tweets/tweet',	$data,	true);
+		$tweetHTML	=	$this->load->view('tweets/tweet_template',	$data,	true);
 		echo	json_encode($tweetHTML);
 	}
 }

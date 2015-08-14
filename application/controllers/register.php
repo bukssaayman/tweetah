@@ -10,27 +10,22 @@ class	Register	extends	MY_Controller	{
 		$this->load->view('register/footer');
 	}
 
-	public	function	checkUserExists(){
-		$strUserExists	=	'';
+	public	function	checkUserExists(){ //this is called via ajax to test if user handle is available
+		$canRegisterHandle	=	false;
 		$this->load->database();
 		$this->load->model('Users_model',	'Users');
-		$data['user']	=	$this->Users->userExists();
-
+		$data['user']	=	$this->Users->getUser();
+		
 		if(empty($data['user'])){
-			$strUserExists	=	true;
-		}	else{
-			$strUserExists	=	false;
-		}
-
-		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH'])	&&	strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])	==	'xmlhttprequest')	{	//if ajax, echo
-			echo	json_encode($strUserExists);
-		}	else{	//if not ajax, return
-			return	$strUserExists;
-		}
+			$canRegisterHandle	=	true;
+		}	
+		
+		echo	json_encode($canRegisterHandle);
 	}
 
 	public	function	signup(){
-
+		$data = array();
+		
 		if(!empty($this->input->post())){
 			$arrErrors	=	array();
 			if(empty($this->input->post('first_name'))){
@@ -57,20 +52,23 @@ class	Register	extends	MY_Controller	{
 				$this->load->library('encrypt');
 				$this->load->database();
 				$this->load->model('Users_model',	'Users');
-				$data['user']	=	$this->Users->addUser($this->encrypt->sha1($this->input->post('password')));
 				
-				parent::setUserSession($data['user']);
-				redirect('/tweets');
+				$data['existing_user']	=	$this->Users->getUser();
+				
+				if(empty($data['existing_user'])){ //you can register a new user
+					$data['user']	=	$this->Users->addUser($this->encrypt->sha1($this->input->post('password')));
+					parent::setUserSession($data['user']);
+					redirect('/tweets');					
+				} else{ //that user already exists
+					$data['errors']	=	array('A user with that handle already exists.');
+				}
 			}	else{
 				$data['errors']	=	$arrErrors;
-				$this->load->view('register/header');
-				$this->load->view('register/register_view',	$data);
-				$this->load->view('register/footer');
 			}
-		}	else{
-			$this->load->view('register/header');
-			$this->load->view('register/register_view');
-			$this->load->view('register/footer');
-		}
+		}	
+		
+		$this->load->view('register/header');
+		$this->load->view('register/register_view', $data);
+		$this->load->view('register/footer');
 	}
 }

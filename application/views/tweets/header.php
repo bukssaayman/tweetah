@@ -10,15 +10,15 @@
 		<script src="<?php	echo	base_url()	.	'assets/js/fancywebsocket.js'	?>"></script>
 
 		<script>
-			var Server;
+			var Client;
 			var defaultTweetText = 'Send a message of up to 140 characters...';
 
-			function send(text) {
-				Server.send('message', text);
+			function send(tweet) {
+				Client.send('message', tweet);
 			}
 
 			$(document).ready(function () {
-				Server = new FancyWebSocket('ws://127.0.0.1:9300');
+				Client = new FancyWebSocket('ws://127.0.0.1:9300');
 				$('#message').val(defaultTweetText);
 
 				$("#message").click(function () {
@@ -32,9 +32,7 @@
 
 				$("#btn_tweet").click(function () {
 					if ($('#message').val() != '' && $('#message').val() != defaultTweetText) {
-
 						$.post("<?php	echo	base_url()	?>tweets/log", {
-							user: "<?php	echo	$this->session->userdata('userID');	?>",
 							text: $('#message').val()
 						},
 						function (data) {
@@ -48,11 +46,11 @@
 					}
 				});
 
-				Server.bind('message', function (data) { //add any new messages
+				Client.bind('message', function (data) { //add any new messages received
 					$('#tweetah-stream').prepend($(JSON.parse(data)).hide().fadeIn(1000));
 				});
 
-				Server.connect();
+				Client.connect();
 			});
 
 		</script>

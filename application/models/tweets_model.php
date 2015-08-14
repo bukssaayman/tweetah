@@ -6,15 +6,15 @@ class	Tweets_model	extends	CI_Model	{
 		parent::__construct();
 	}
 
-	function	getTweetsForUser(){
+	function	getTweetsForUserTimeline(){
 		$results	=	array();
-		$this->db->select('*');
+		$this->db->select('tbl_user.strHandle, tbl_tweets.timestamp, tbl_tweets.strTweetText');
 		$this->db->from('tbl_tweets');
-		$this->db->join('tbl_user',	'tbl_tweets.intUserID = tbl_user.userID');
+		$this->db->join('tbl_user',	'tbl_tweets.userID = tbl_user.userID');
 		$this->db->order_by("timestamp", "desc"); 
 		$query	=	$this->db->get();
 
-		foreach($query->result()	as	$row)	{
+		foreach($query->result_array()	as	$row)	{
 			$results[]	=	$row;
 		}
 		return	$results;
@@ -23,7 +23,7 @@ class	Tweets_model	extends	CI_Model	{
 	function	logTweetsForUser(){
 		$this->db->insert('tbl_tweets',	array(
 		'strTweetText'	=>	$this->input->post('text'),
-		'intUserID'	=>	$this->input->post('user')
+		'userID'	=>	$this->session->userdata('userID')
 		));
 	}
 }

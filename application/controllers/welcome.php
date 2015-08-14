@@ -17,10 +17,10 @@ class	Welcome	extends	MY_Controller	{
 		$this->load->library('encrypt');
 		$this->load->database();
 		$this->load->model('Users_model',	'Users');
-		$data['user']	=	$this->Users->getUserDetails(array('password'=> $this->encrypt->sha1($this->input->post('password'))));
-
+		$data['user']	=	$this->Users->getUser(array('login'=>''));
+		
 		if(!empty($data['user'])){
-			parent::setUserSession($data['user'][0]->userID);
+			parent::setUserSession($data['user'][0]['userID']);
 			redirect('/tweets');
 		}	else{
 			$data['error']	=	true;

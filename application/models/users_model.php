@@ -7,37 +7,32 @@ class	Users_model	extends	CI_Model	{
 	function	__construct()	{
 		parent::__construct();
 	}
-
-	function	getUserDetails($search = array()){
-
+	
+	function getUser($searchParam = array()){
 		$results	=	array();
-		if(!empty($search['password'])){	//normal login attempt
-			//$this->input->post() already sanitizes the input for me, no extra escaping necessary
+		$key = array_shift(array_keys($searchParam)); //array_keys returns a multidimentional array of keys, I want the first element
+		
+		switch($key)	{
+			case	'login': //login attempt, test user handle and password
+				$query	=	$this->db->get_where('tbl_user',	array('strHandle'	=>	$this->input->post('handle'),	'strPassword'	=>	$this->encrypt->sha1($this->input->post('password'))));
+				break;
+			case	'userID': //get user based on specific ID
+				$query	=	$this->db->get_where('tbl_user',	array('userID'	=>	$searchParam['userID']));
+				break;
 
-			$query	=	$this->db->get_where('tbl_user',	array('strHandle'	=>	$this->input->post('handle'),	'strPassword'	=>	$this->encrypt->sha1($this->input->post('password'))));
-		}	else{//get a specific user
-			$query	=	$this->db->get_where('tbl_user',	array('userID'	=>	$search['userID']));
+			default: //used to check if user hanldle is availbe at registration stage
+				$query	=	$this->db->get_where('tbl_user',	array('strHandle'	=>	$this->input->post('handle')));
+				break;
 		}
 
-		foreach($query->result()	as	$row)	{
+		foreach($query->result_array()	as	$row)	{
 			$results[]	=	$row;
 		}
-		return	$results;
-	}
-
-	function	userExists(){
-		//$this->input->post() already sanitizes the input for me, no extra escaping necessary
-
-		$results	=	array();
-		$query	=	$this->db->get_where('tbl_user',	array('strHandle'	=>	$this->input->post('handle')));
-		foreach($query->result()	as	$row)	{
-			$results[]	=	$row;
-		}
+		
 		return	$results;
 	}
 
 	function	addUser($strPassword	=	''){
-
 		$data	=	array(
 		'strHandle'	=>	$this->input->post('handle'),
 		'strFirstName'	=>	$this->input->post('first_name'),
