@@ -18,7 +18,7 @@
 			}
 
 			$(document).ready(function () {
-				Client = new FancyWebSocket('ws://<?php echo $_SERVER['SERVER_ADDR'] ?>:9300');
+				Client = new FancyWebSocket('ws://127.0.0.1:9300');
 				$('#message').val(defaultTweetText);
 
 				$("#message").click(function () {
